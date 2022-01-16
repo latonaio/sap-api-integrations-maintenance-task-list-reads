@@ -10,7 +10,7 @@ import (
 func main() {
 	l := logger.NewLogger()
 	fr := sap_api_input_reader.NewFileReader()
-	inoutSDC := fr.ReadSDC("./Inputs//SDC_Maintenance_Task_List_Operation_Text_sample.json")
+	inoutSDC := fr.ReadSDC("./Inputs//SDC_Maintenance_Task_List_Task_List_Desc_sample.json")
 	caller := sap_api_caller.NewSAPAPICaller(
 		"https://sandbox.api.sap.com/s4hanacloud/sap/opu/odata4/sap/", l,
 	)
@@ -18,7 +18,7 @@ func main() {
 	accepter := inoutSDC.Accepter
 	if len(accepter) == 0 || accepter[0] == "All" {
 		accepter = []string{
-			"Header", "HeaderEquipmentPlant", "StrategyPackage", "StrategyPackageText",
+			"Header", "HeaderEquipmentPlant", "TaskListDesc", "StrategyPackage", "StrategyPackageText",
 			"Operation", "OperationText", "OperationMaterial",
 		}
 	}
@@ -30,6 +30,7 @@ func main() {
 		inoutSDC.MaintenanceTaskList.TaskListVersionCounter,
 		inoutSDC.MaintenanceTaskList.Equipment,
 		inoutSDC.MaintenanceTaskList.Plant,
+		inoutSDC.MaintenanceTaskList.TaskListDesc,
 		inoutSDC.MaintenanceTaskList.StrategyPackage.TaskListSequence,
 		inoutSDC.MaintenanceTaskList.StrategyPackage.MaintenancePackageText,
 		inoutSDC.MaintenanceTaskList.StrategyPackage.Operation.TechnicalObject,
